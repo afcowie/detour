@@ -1,7 +1,7 @@
 cabal-version:       >= 1.10
 name:                detour
 version:             0.1
-synopsis:            Command line tools for Docker
+synopsis:            Tools for Docker
 license:             BSD3
 author:              Andrew Cowie <andrew@operationaldynamics.com>
 maintainer:          Andrew Cowie <andrew@operationaldynamics.com>
