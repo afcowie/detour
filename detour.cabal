@@ -24,6 +24,7 @@ library
   include-dirs:      .
 
   exposed-modules:   Linux.Containers
+  other-modules:     Linux.Program
 
   ghc-options:       -O2
                      -threaded
