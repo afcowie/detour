@@ -1,10 +1,11 @@
-all: snippet
+all: detour
 
 #
 # Top-level targets. This is ugly. A program to extract these from the .cabal
 # file would work, but is there anything easier?
 #
 
+detour: dist/build/detour/detour
 snippet: dist/build/snippet/snippet
 
 
