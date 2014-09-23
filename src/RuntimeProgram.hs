@@ -18,6 +18,7 @@
 module Main where
 
 import Control.Concurrent
+import Data.Monoid
 import Options.Applicative
 import System.Log.Logger
 
@@ -37,6 +38,9 @@ data Component =
                  One
                | Two { raw   :: Bool }
 
+(<+>) :: Monoid θ => θ -> θ -> θ
+(<+>) = mappend
+
 commandLineParser :: ParserInfo Options
 commandLineParser = info (helper <*> optionsParser) fullDesc
 
@@ -46,20 +50,20 @@ optionsParser = Options <$> parseSocket
                         <*> parseComponents
   where
     parseSocket = strOption $
-        long "socket" `mappend`
-        short 's' `mappend`
-        metavar "SOCKET" `mappend`
-        value "/var/run/docker.sock" `mappend`
-        showDefault `mappend`
+        long "socket" <+>
+        short 's' <+>
+        metavar "SOCKET" <+>
+        value "/var/run/docker.sock" <+>
+        showDefault <+>
         help "Location of Docker remote control API endpoint"
 
     parseDebug = switch $
-        long "debug" `mappend`
-        short 'd' `mappend`
+        long "debug" <+>
+        short 'd' <+>
         help "Output lots of debugging information"
 
     parseComponents = subparser
-       (parseOneComponent `mappend`
+       (parseOneComponent <+>
         parseTwoComponent)
 
     parseOneComponent =
