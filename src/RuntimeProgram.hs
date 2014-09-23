@@ -17,7 +17,7 @@
 
 module Main where
 
-import Control.Concurrent
+import Control.Concurrent.Async
 import Data.Monoid
 import Options.Applicative
 import System.Log.Logger
@@ -35,7 +35,7 @@ data Options = Options
   , component :: Component }
 
 data Component = 
-                 One
+                 Status
                | Two { raw   :: Bool }
 
 (<+>) :: Monoid θ => θ -> θ -> θ
@@ -67,7 +67,7 @@ optionsParser = Options <$> parseSocket
         parseTwoComponent)
 
     parseOneComponent =
-        componentHelper "one" (pure One) "Number 1"
+        componentHelper "status" (pure Status) "Get status of currently running containers"
 
     parseTwoComponent =
         componentHelper "two" readOptionsParser "Takes two to tango"
@@ -88,7 +88,6 @@ readOptionsParser = Two <$> parseRaw
 --
 -- Actual tools
 --
-
 
 --
 -- Main program entry point
@@ -111,13 +110,12 @@ main = do
     -- of the main thread so that we can block the main thread on the quit
     -- semaphore, such that a user interrupt will kill the program.
 
-    forkIO $ do
+    a <- async $ do
         case component of
-            One ->
+            Status ->
+                putStrLn "Checking status"
+            Two _ ->
                 undefined
-            Two raw ->
-                undefined
-        putMVar quit ()
 
-    takeMVar quit
+    _ <- wait a
     debugM "Main.main" "End"

@@ -71,6 +71,7 @@ executable           detour
   build-depends:     base >= 4.7 && <5,
                      bytestring,
                      containers,
+                     async,
                      hslogger,
                      optparse-applicative,
                      detour-haskell
