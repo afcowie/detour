@@ -6,10 +6,10 @@ all: detour
 #
 
 detour: dist/build/detour/detour
-	[ ! -f $@ ] && ln -s $< $@
+	-[ ! -L $@ ] && ln -s $< $@
 
 snippet: dist/build/snippet/snippet
-	[ ! -f $@ ] && ln -s $< $@
+	-[ ! -L $@ ] && ln -s $< $@
 
 
 #
@@ -62,6 +62,7 @@ dist/build/%: dist/setup-config tags $(SOURCES)
 #
 
 SOURCES=$(shell find lib -name '*.hs' -type f) \
+	$(shell find src -name '*.hs' -type f) \
 	$(shell find tests -name '*.hs' -type f)
 
 HOTHASKTAGS=$(shell which hothasktags 2>/dev/null)
