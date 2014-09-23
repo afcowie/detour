@@ -6,7 +6,10 @@ all: detour
 #
 
 detour: dist/build/detour/detour
+	[ ! -f $@ ] && ln -s $< $@
+
 snippet: dist/build/snippet/snippet
+	[ ! -f $@ ] && ln -s $< $@
 
 
 #

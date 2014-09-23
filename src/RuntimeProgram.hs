@@ -55,7 +55,7 @@ optionsParser = Options <$> parseSocket
         metavar "SOCKET" <+>
         value "/var/run/docker.sock" <+>
         showDefault <+>
-        help "Location of Docker remote control API endpoint"
+        help "Location of Docker's remote control API endpoint"
 
     parseDebug = switch $
         long "debug" <+>
