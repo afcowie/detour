@@ -106,9 +106,9 @@ main = do
     -- Run selected component.
     debugM "Main.main" "Running command"
 
-    -- Although none of the components are running in the background, we get off
-    -- of the main thread so that we can block the main thread on the quit
-    -- semaphore, such that a user interrupt will kill the program.
+    -- Although none of the commands are daemons, we get off of the main thread
+    -- so that we can block the main thread on the quit semaphore, such that a
+    -- user interrupt will kill the program.
 
     a <- async $ do
         case component of

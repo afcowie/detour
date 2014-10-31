@@ -12,9 +12,8 @@
 --
 -- | 
 --
-module Linux.Containers
+module Linux.Docker.Remote
 (
 )
 where
 
-import Linux.Docker.Remote
