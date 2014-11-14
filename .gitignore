@@ -8,3 +8,4 @@ src/Package.hs
 # binaries (or rather, symlinks to them)
 detour
 snippet
+experiment

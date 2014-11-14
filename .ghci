@@ -2,3 +2,4 @@
 :set +m
 :set -ilib:src:tests
 :set -I.
+:load tests/Experiment.hs

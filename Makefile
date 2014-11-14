@@ -1,5 +1,6 @@
 all: detour
 
+
 #
 # Top-level targets. This is ugly. A program to extract these from the .cabal
 # file would work, but is there anything easier?
@@ -9,6 +10,9 @@ detour: dist/build/detour/detour
 	-[ ! -L $@ ] && ln -s $< $@
 
 snippet: dist/build/snippet/snippet
+	-[ ! -L $@ ] && ln -s $< $@
+
+experiment: dist/build/experiment/experiment
 	-[ ! -L $@ ] && ln -s $< $@
 
 
