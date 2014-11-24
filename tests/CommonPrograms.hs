@@ -1,3 +1,14 @@
+--
+-- Unshipping Docker
+--
+-- Copyright © 2014 Operational Dynamics Consulting, Pty Ltd and Others
+--
+-- The code in this file, and the program it is a part of, is
+-- made available to you by its authors as open source software:
+-- you can redistribute it and/or modify it under the terms of
+-- the 3-clause BSD licence.
+--
+
 {-# LANGUAGE DeriveFunctor #-}
 
 import System.Exit
@@ -25,18 +36,18 @@ help :: Free Command ()
 help = liftF $ Help ()
 
 -- Collapse our IOFree DSL into IO monad actions.
-interpretActual :: Free Command a -> IO a
-interpretActual (Pure r) = return r
-interpretActual (Free x) = case x of
+interpretDebug :: Free Command a -> IO a
+interpretDebug (Pure r) = return r
+interpretDebug (Free x) = case x of
     List path k -> do
                     putStrLn ("I would list " ++ path)
-                    interpretActual k
+                    interpretDebug k
 
     Touch path k -> do
                     putStrLn ("I would touch " ++ path)
-                    interpretActual k
+                    interpretDebug k
 
-    Help k      -> putStrLn "Help for all" >> interpretActual k
+    Help k      -> putStrLn "Help for all" >> interpretDebug k
 
     Exit code   -> case code of 
                     0    -> exitWith ExitSuccess
@@ -50,5 +61,5 @@ directoryListing = do
     help
 
 main :: IO ()
-main = interpretActual directoryListing
+main = interpretDebug directoryListing
 
