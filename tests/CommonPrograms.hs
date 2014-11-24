@@ -53,6 +53,18 @@ interpretDebug (Free x) = case x of
                     0    -> exitWith ExitSuccess
                     _    -> exitWith (ExitFailure code)
 
+interpretActual :: Free Command a -> IO a
+interpretActual = iterM run
+  where
+    run (List path k)  = exec ("ls " ++ path) >> k
+    run (Touch path k) = exec ("touch " ++ path) >> k
+    run (Help k)       = exec "echo help" >> k
+    run (Exit code)    = case code of 
+                            0 -> exitWith ExitSuccess
+                            _ -> exitWith (ExitFailure code)
+
+    exec = putStrLn
+
 directoryListing :: Free Command ()
 directoryListing = do
     ls "."
@@ -61,5 +73,5 @@ directoryListing = do
     help
 
 main :: IO ()
-main = interpretDebug directoryListing
+main = interpretActual directoryListing
 
