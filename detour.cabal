@@ -73,6 +73,7 @@ test-suite           experiment
                      blaze-builder,
                      void,
                      pipes,
+                     free,
                      process-streaming >= 0.6.2.2,
                      detour-haskell
 
